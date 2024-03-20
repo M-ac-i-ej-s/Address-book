@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="component-actions">
-                <slot></slot>
+                <slot :isActive="() => isActive.value = false"></slot>
             </div>
           </v-card>
         </template>
@@ -40,7 +40,8 @@ export default {
         },
         width: Number,
         resetErrors: Function
-    }
+    },
+
 }
 </script>
 <style lang="scss" scoped>

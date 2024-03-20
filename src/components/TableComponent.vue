@@ -135,11 +135,11 @@ export default {
             }
 
             if(address.email !== '') {
-                if(adressessToValidate.find(addressToFind => addressToFind.email === address.email)) {
-                    if(!this.validateEmail(address.email)) {
-                        this.errors.email = 'Email is not valid'
-                    } else {
+                if(!this.validateEmail(address.email)) {
+                    if(adressessToValidate.find(addressToFind => addressToFind.email === address.email)) {
                         this.errors.email = 'Email is already in use'
+                    } else {
+                        this.errors.email = 'Email is not valid'
                     }
                 } else {
                     this.errors.email = ''

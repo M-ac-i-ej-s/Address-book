@@ -1,5 +1,5 @@
 <template>
-    <BaseDialog buttonLabel="Edit" dialogWidth="600" buttonColor="primary" :resetErrors="resetErrors">
+    <BaseDialog buttonLabel="Edit" dialogWidth="600" buttonColor="primary" :resetErrors="resetErrors" v-slot="slotProps">
         <div class="EditComponent">
             <v-text-field
                 label="Name"
@@ -45,7 +45,7 @@
                 <v-btn color="grey" @click="handleClear">
                     Clear
                 </v-btn>
-                <v-btn color="primary" @click="handleSave" :loading="loading">
+                <v-btn color="primary" @click="handleSave(slotProps.isActive)" :loading="loading">
                     Save
                 </v-btn>
             </div>
@@ -64,7 +64,7 @@ export default {
         address: Object,
         handleEdit: Function,
         errors: Object,
-        resetErrors: Function
+        resetErrors: Function,
     },
     data() {
         return {
@@ -79,13 +79,14 @@ export default {
         }
     },
     methods: {
-        handleSave() {
+        handleSave(isActive) {
             this.loading = true
             this.handleEdit(this.addressToEdit)
             if(this.errors.name !== '' || this.errors.lastname !== '' || this.errors.phone !== '' || this.errors.email !== '') {
                 this.loading = false
             }
             setTimeout(() => {
+                isActive()
                 this.loading = false
             }, 2000)
         },
